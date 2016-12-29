@@ -10,8 +10,9 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-      navigator.geolocation.getCurrentPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
+    //navigator.geolocation.getCurrentPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
         this.receivedEvent('deviceready');
+        navigator.geolocation.watchPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
 
     },
 
@@ -46,6 +47,11 @@ var app = {
 
     onSuccess:function(position){
       var coords = position.coords;
+      var a =getElementById("lng");
+      var b =getElementById("lat");
+      a.innerHTML=coords.longitude;
+      b.innerHTML=coords.latitude;
+
       app.initMap(coords.latitude,coords.longitude);
     },
 
