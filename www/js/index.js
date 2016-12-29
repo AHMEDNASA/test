@@ -1,5 +1,7 @@
 
 var app = {
+
+    a:0,
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
@@ -31,12 +33,28 @@ var app = {
     },
 
     initMap: function(lat,long){
-      var options ={
-        zoom:8,
+
+      if (app.a==0){
+        var options ={
+          zoom:8,
+          center:new google.maps.LatLng(lat,long),
+          mapTypeId:google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('map'),options);
+        var markerPoint = new google.maps.LatLng(lat,long);
+        var marker= new google.maps.Marker({
+          position:markerPoint,
+          map:map,
+          title:"Device Location"
+        })
+      }
+
+      app.a=1;
+       options ={
+        zoom:map.getZoom(),
         center:new google.maps.LatLng(lat,long),
         mapTypeId:google.maps.MapTypeId.ROADMAP
       }
-
       var map = new google.maps.Map(document.getElementById('map'),options);
       var markerPoint = new google.maps.LatLng(lat,long);
       var marker= new google.maps.Marker({
@@ -44,6 +62,7 @@ var app = {
         map:map,
         title:"Device Location"
       })
+
     },
 
     onSuccess:function(position){
