@@ -10,6 +10,7 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
+      navigator.geolocation.getCurrentPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
         this.receivedEvent('deviceready');
 
     },
@@ -24,15 +25,15 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-        navigator.geolocation.getCurrentPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
+
     },
 
     initMap: function(lat,long){
       var options ={
         zoom:8,
-        center:new google.maps.LatLang(lat,long),
+        center:new google.maps.LatLng(lat,long),
         mapTypeId:google.maps.MapTypeId.ROADMAP
-      };
+      }
 
       var map = new google.maps.Map(document.getElementById('map'),options);
       var markerPoint = new google.maps.LatLng(lat,long);
@@ -40,7 +41,7 @@ var app = {
         position:markerPoint,
         map:map,
         title:"Device Location"
-      });
+      })
     },
 
     onSuccess:function(position){
