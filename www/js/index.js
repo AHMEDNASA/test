@@ -2,6 +2,7 @@
 var app = {
 
     a:0,
+    map:0,
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
@@ -40,7 +41,7 @@ var app = {
           center:new google.maps.LatLng(lat,long),
           mapTypeId:google.maps.MapTypeId.ROADMAP
         }
-        var map = new google.maps.Map(document.getElementById('map'),options);
+        app.map = new google.maps.Map(document.getElementById('map'),options);
         var markerPoint = new google.maps.LatLng(lat,long);
         var marker= new google.maps.Marker({
           position:markerPoint,
@@ -51,7 +52,7 @@ var app = {
 
       app.a=1;
        options ={
-        zoom:map.getZoom(),
+        zoom:app.map.getZoom(),
         center:new google.maps.LatLng(lat,long),
         mapTypeId:google.maps.MapTypeId.ROADMAP
       }
