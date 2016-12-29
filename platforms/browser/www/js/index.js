@@ -11,8 +11,9 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
     //navigator.geolocation.getCurrentPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
+    navigator.geolocation.watchPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
         this.receivedEvent('deviceready');
-        navigator.geolocation.watchPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
+
 
     },
 
@@ -47,8 +48,8 @@ var app = {
 
     onSuccess:function(position){
       var coords = position.coords;
-      var a =getElementById("lng");
-      var b =getElementById("lat");
+      var a =document.getElementById("lng");
+      var b =document.getElementById("lat");
       a.innerHTML=coords.longitude;
       b.innerHTML=coords.latitude;
 
