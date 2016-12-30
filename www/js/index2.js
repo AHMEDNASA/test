@@ -1,5 +1,5 @@
-
 var Map;
+var a = 0;
 var Infowindow;
 var Latitude = undefined;
 var Longitude = undefined;
@@ -7,13 +7,14 @@ var Longitude = undefined;
 // Get geo coordinates
 
 function getPlacesLocation() {
-    navigator.geolocation.getCurrentPosition
-    (onPlacesSuccess, onPlacesError, { enableHighAccuracy: true });
+    navigator.geolocation.getCurrentPosition(onPlacesSuccess, onPlacesError, {
+        enableHighAccuracy: true
+    });
 }
 
 // Success callback for get geo coordinates
 
-var onPlacesSuccess = function (position) {
+var onPlacesSuccess = function(position) {
 
     Latitude = position.coords.latitude;
     Longitude = position.coords.longitude;
@@ -27,31 +28,38 @@ var onPlacesSuccess = function (position) {
 function getPlaces(latitude, longitude) {
 
     var latLong = new google.maps.LatLng(latitude, longitude);
+    if (a == 0) {
+        var mapOptions = {
+            center: new google.maps.LatLng(latitude, longitude),
+            zoom: 20,
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+        }
+        a = 1;
+    } else {
+        var mapOptions = {
+            center: new google.maps.LatLng(latitude, longitude),
+            zoom: Map.getZoom(),
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+        }
+    }
 
-    var mapOptions = {
-
-        center: new google.maps.LatLng(latitude, longitude),
-        zoom: 20,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-
-    };
 
     Map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     Infowindow = new google.maps.InfoWindow();
 
-    var markerPoint = new google.maps.LatLng(latitude,longitude);
-    var marker= new google.maps.Marker({
-      position:markerPoint,
-      map:Map,
-      title:"Device Location"
+    var markerPoint = new google.maps.LatLng(latitude, longitude);
+    var marker = new google.maps.Marker({
+        position: markerPoint,
+        map: Map,
+        title: "Device Location"
     })
 
 }
 
 // Success callback for watching your changing position
 
-var onPlacesWatchSuccess = function (position) {
+var onPlacesWatchSuccess = function(position) {
 
     var updatedLatitude = position.coords.latitude;
     var updatedLongitude = position.coords.longitude;
@@ -90,7 +98,7 @@ function createMarker(place) {
         position: place.geometry.location
     });
 
-    google.maps.event.addListener(marker, 'click', function () {
+    google.maps.event.addListener(marker, 'click', function() {
 
         Infowindow.setContent(place.name);
         Infowindow.open(Map, this);
@@ -109,8 +117,9 @@ function onPlacesError(error) {
 
 function watchPlacesPosition() {
 
-    return navigator.geolocation.watchPosition
-    (onPlacesWatchSuccess, onPlacesError, { enableHighAccuracy: true });
+    return navigator.geolocation.watchPosition(onPlacesWatchSuccess, onPlacesError, {
+        enableHighAccuracy: true
+    });
 }
 
 watchPlacesPosition();
