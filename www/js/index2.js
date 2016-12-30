@@ -34,6 +34,7 @@ function getPlaces(latitude, longitude) {
             zoom: 20,
             mapTypeId: google.maps.MapTypeId.SATELLITE
         }
+        Map = new google.maps.Map(document.getElementById("map"), mapOptions);
         a = 1;
     } else {
         var mapOptions = {
@@ -44,7 +45,7 @@ function getPlaces(latitude, longitude) {
     }
 
 
-    Map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
 
     Infowindow = new google.maps.InfoWindow();
 
