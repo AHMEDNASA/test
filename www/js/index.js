@@ -14,7 +14,7 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
     //navigator.geolocation.getCurrentPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
-    navigator.geolocation.watchPosition(app.onSuccess,app.onError,{timeout:5000, enableAccuracy:false});
+    navigator.geolocation.watchPosition(app.onSuccess,app.onError,{timeout:5000, enableHighAccuracy: true});
         this.receivedEvent('deviceready');
 
 
